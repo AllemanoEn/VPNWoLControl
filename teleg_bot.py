@@ -1,5 +1,5 @@
 import logging
-import config
+import SECRETS
 from telegram import Update
 from telegram.ext import ApplicationBuilder, ContextTypes, CommandHandler
 
@@ -20,7 +20,7 @@ async def whoami(update: Update, context: ContextTypes.DEFAULT_TYPE):
     print('You talk with user {} and his user ID: {} '.format(user['username'], user['id']))
 
 if __name__ == '__main__':
-    token = config.TELEGRAM_BOT_TOKEN
+    token = SECRETS.TELEGRAM_BOT_TOKEN
     if not token:
         raise ValueError("No TELEGRAM_BOT_TOKEN set in config.py")
 
