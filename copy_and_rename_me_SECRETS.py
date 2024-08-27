@@ -2,3 +2,4 @@
 # So the file will be ignore by Git
 TELEGRAM_BOT_TOKEN = ''
 PLEX_MAC_ADDRESS = ''
+PLEX_IP = ''
