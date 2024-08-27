@@ -1,7 +1,8 @@
 import logging
 import SECRETS
+import AUTHORIZED_USERNAMES
 from telegram import Update
-from telegram.ext import ApplicationBuilder, ContextTypes, CommandHandler
+from telegram.ext import ApplicationBuilder, ContextTypes, CommandHandler, filters
 
 logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -9,7 +10,7 @@ logging.basicConfig(
 )
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await context.bot.send_message(chat_id=update.effective_chat.id, text="I'm a bot, please talk to me!")
+    await context.bot.send_message(chat_id=update.effective_chat.id, text="Hello, c'est le BOT pour contrôler le serveur Plex ✨")
 
 async def okay(update: Update, context: ContextTypes.DEFAULT_TYPE):
     print("Okay command received!")
@@ -28,7 +29,7 @@ if __name__ == '__main__':
 
     start_handler = CommandHandler('start', start)
     okay_handler = CommandHandler('okay', okay)
-    whoami_handler = CommandHandler('whoami', whoami)
+    whoami_handler = CommandHandler('whoami', whoami, filters.User(username=AUTHORIZED_USERNAMES.AUTHORIZED_USERNAMES_LIST))
 
     application.add_handler(start_handler)
     application.add_handler(okay_handler)
