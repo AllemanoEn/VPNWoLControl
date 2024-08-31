@@ -1,4 +1,5 @@
 import logging
+import subprocess
 import SECRETS
 import AUTHORIZED_USERNAMES
 from telegram import Update
@@ -33,6 +34,8 @@ async def statut(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await context.bot.send_message(chat_id=update.effective_chat.id, text="Le serveur Plex est éteint 🔌")
 
 async def switch_on(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    print(subprocess.run(["sudo", "etherwake", "-i", "eth0", SECRETS.PLEX_MAC_ADDRESS], 
+                     capture_output=True))
     await context.bot.send_message(chat_id=update.effective_chat.id, text="Le serveur Plex va démarrer (attendre ~20 sec) ✅⏳")
     
 async def switch_off(update: Update, context: ContextTypes.DEFAULT_TYPE):
