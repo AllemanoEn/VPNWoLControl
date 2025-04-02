@@ -1,2 +1,2 @@
 # This file contain username of authorized Telegram account
-AUTHORIZED_USERNAMES_LIST = ['Enzo_Allemano','Brenda_Taboga','dinoallemano','Serafalll','PizzeraJ','Avedey','stephmano']
+AUTHORIZED_USERNAMES_LIST = ['Enzo_Allemano','Brenda_Taboga','dinoallemano','Serafalll','PizzeraJ','Avedey','stephmano','svety66']

@@ -7,10 +7,12 @@ from telegram.ext import ApplicationBuilder, ContextTypes, CommandHandler, filte
 
 from ping3 import ping
 
+'''
 logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
     level=logging.INFO
 )
+'''
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(chat_id=update.effective_chat.id, text="Hello, c'est le BOT pour contrôler le serveur Plex ✨")
@@ -36,6 +38,8 @@ async def statut(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def switch_on(update: Update, context: ContextTypes.DEFAULT_TYPE):
     print(subprocess.run(["sudo", "etherwake", "-i", "eth0", SECRETS.PLEX_MAC_ADDRESS], 
                      capture_output=True))
+    user = update.message.from_user
+    print('User {} start the server !'.format(user['username'])) 
     await context.bot.send_message(chat_id=update.effective_chat.id, text="Le serveur Plex va démarrer (attendre ~20 sec) ✅⏳")
     
 async def switch_off(update: Update, context: ContextTypes.DEFAULT_TYPE):
