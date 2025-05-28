@@ -8,14 +8,23 @@ from datetime import datetime
 from telegram import Update
 from telegram.ext import ApplicationBuilder, ContextTypes, CommandHandler, filters
 
-from ping3 import ping
-
 '''
 logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
     level=logging.INFO
 )
 '''
+
+def is_host_up(ip: str) -> bool:
+    try:
+        output = subprocess.run(
+            ["ping", "-c", "1", "-W", "1", ip],
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL
+        )
+        return output.returncode == 0
+    except Exception:
+        return False
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(chat_id=update.effective_chat.id, text="Hello, c'est le BOT pour contrôler le serveur Plex ✨")
@@ -30,12 +39,9 @@ async def whoami(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(chat_id=update.effective_chat.id, text='Tu es {} et ton ID est : {} '.format(user['username'], user['id']))
     
 async def statut(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    response = ping(SECRETS.PLEX_IP)
-    if response is not None:
-        # print("La machine Windows est allumée!")
+    if is_host_up(SECRETS.PLEX_IP):
         await context.bot.send_message(chat_id=update.effective_chat.id, text="Le serveur Plex est allumé ⚡")
     else:
-        # print("La machine Windows est éteinte.")
         await context.bot.send_message(chat_id=update.effective_chat.id, text="Le serveur Plex est éteint 🔌")
 
 async def switch_on(update: Update, context: ContextTypes.DEFAULT_TYPE):
