@@ -45,7 +45,7 @@ async def statut(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await context.bot.send_message(chat_id=update.effective_chat.id, text="Le serveur Plex est éteint 🔌")
 
 async def switch_on(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    print(subprocess.run(["sudo", "etherwake", "-i", "eth0", SECRETS.PLEX_MAC_ADDRESS], 
+    print(subprocess.run(["sudo", "etherwake", "-i", "eno1", SECRETS.PLEX_MAC_ADDRESS], 
                      capture_output=True))
     
     user = update.message.from_user
