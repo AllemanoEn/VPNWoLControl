@@ -75,10 +75,11 @@ def save_plex_start(user: dict) -> None:
         data = []
 
     entry = {
-        "username": user.get("username") or "sans_username",
-        "user_id": user.get("id"),
+        "username": user.username or "sans_username",
+        "user_id": user.id,
         "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     }
+
 
     data.insert(0, entry)
 
